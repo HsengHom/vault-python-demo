@@ -1,0 +1,51 @@
+name: Build Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Package application
+        run: |
+          mkdir -p release/vault-python-app
+          cp -r *.py release/vault-python-app/
+          cp requirements.txt release/vault-python-app/
+          cp -r venv release/vault-python-app/
+
+      - name: Create archive
+        run: |
+          tar -czf vault-python-app_linux_amd64.tar.gz \
+            -C release vault-python-app
+
+      - name: Create checksum
+        run: |
+          sha256sum vault-python-app_linux_amd64.tar.gz \
+            > checksums.txt
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vault-python-app
+          path: |
+            vault-python-app_linux_amd64.tar.gz
+            checksums.txt
