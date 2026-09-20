@@ -41,6 +41,24 @@ pip install -r requirements.txt
 # pip install hvac
 ```
 
+### 3. Configure Environment (`.env`)
+
+Copy `.env.example` to `.env` and fill in your Vault credentials so you don't need to manually export variables each time:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env`:
+```ini
+VAULT_ADDR=https://<your-vault-address>:8200
+VAULT_TOKEN=<your-vault-token>
+VAULT_ROLE_ID=<your-role-id>
+VAULT_SECRET_ID=<your-secret-id>
+```
+
+Both `app.py` and `app2.py` automatically load `.env` on startup.
+
 ---
 
 ## Usage
@@ -63,9 +81,14 @@ python app.py
 **Expected Output:**
 ```text
 Connected to Vault
+Vault URL: https://<your-vault-address>:8200
+Secret Path: secret/nhhaApp
 Username: <username>
 Password: <password>
+Server running on http://localhost:9200
 ```
+
+Open `http://localhost:9200` in your web browser to view the secret.
 
 ---
 
@@ -88,9 +111,14 @@ python app2.py
 **Expected Output:**
 ```text
 Successfully authenticated with Vault
+Vault URL: https://<your-vault-address>:8200
+Secret Path: secret/nhhaApp
 Username: <username>
 Password: <password>
+Server running on http://localhost:9201
 ```
+
+Open `http://localhost:9201` in your web browser to view the secret.
 
 ---
 

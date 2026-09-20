@@ -31,6 +31,7 @@ jobs:
         run: |
           mkdir -p release/vault-python-app
           cp -r *.py release/vault-python-app/
+          cp -r templates release/vault-python-app/
           cp requirements.txt release/vault-python-app/
           cp -r venv release/vault-python-app/
 

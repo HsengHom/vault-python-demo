@@ -1,0 +1,23 @@
+# Environment variables
+.env
+*.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+*.spec
+
+# Credentials & keys
+*.pem
+*.key
+
+# Build & Release artifacts
+build/
+dist/
+release/
+*.tar.gz
+checksums.txt
